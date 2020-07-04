@@ -9,3 +9,5 @@ componentsincludedir = $(pkgincludedir)/lib/components
 componentsinclude_HEADERS = \
 	components/file_eraser.h \
 	components/scan.h
+	components/decoder.h
+	
