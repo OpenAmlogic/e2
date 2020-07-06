@@ -25,6 +25,7 @@ driverinclude_HEADERS = \
 	driver/rcinput_swig.h \
 	driver/rfmod.h \
 	driver/hdmi_cec.h
+	driver/alsa.h
 
 if HAVE_LIBSDL
 driver_libenigma_driver_a_SOURCES += \
