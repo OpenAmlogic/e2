@@ -28,6 +28,8 @@ public:
 
 class eDVBVideo: public iObject, public sigc::trackable
 {
+        E_DECLARE_PRIVATE(eDVBVideo)
+
 	DECLARE_REF(eDVBVideo);
 private:
 	ePtr<eDVBDemux> m_demux;
