@@ -50,6 +50,7 @@ protected:
 	virtual void paint(gPainter &painter, eWindowStyle &style, const ePoint &offset, int selected)=0;
 
 	virtual int getItemHeight()=0;
+	virtual int getItemWidth() { return -1; }
 
 	eListbox *m_listbox;
 #endif
@@ -90,9 +91,10 @@ struct eListboxStyle
 
 class eListbox: public eWidget
 {
+        SWIG_AUTODOC
 	void updateScrollBar();
 public:
-	eListbox(eWidget *parent);
+	eListbox(eWidget *parent, bool withActionMap=true);
 	~eListbox();
 
 	PSignal0<void> selectionChanged;
@@ -135,6 +137,8 @@ public:
 	};
 
 	void setItemHeight(int h);
+        void setMargin(const ePoint &margin);
+        void setSelectionZoom(float zoom);
 	void setSelectionEnable(int en);
 
 	void setBackgroundColor(gRGB &col);
