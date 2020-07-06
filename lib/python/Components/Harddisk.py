@@ -637,7 +637,12 @@ class Partition:
 		return ''
 
 DEVICEDB = \
-	{"dm8000":
+       {"one":
+               {
+                       "/devices/platform/ff500000.dwc3/xhci-hcd.0.auto/usb1": _("USB 2.0 (Back, inner)"),
+                       "/devices/platform/ff500000.dwc3/xhci-hcd.0.auto/usb2": _("USB 3.0 (Back, outer)"),
+               },
+       "dm8000":
 		{
 			"/devices/pci0000:01/0000:01:00.0/host1/target1:0:0/1:0:0:0": _("SATA"),
 			"/devices/platform/brcm-ehci.0/usb1/1-1/1-1.1/1-1.1:1.0": _("Front USB"),
@@ -739,7 +744,7 @@ DEVICEDB = \
 	},
 	"dm500hd":
 	{
-		"/devices/pci0000:01/0000:01:00.0/host1/target1:0:0/1:0:0:0": _("eSATA"),
+l		"/devices/pci0000:01/0000:01:00.0/host1/target1:0:0/1:0:0:0": _("eSATA"),
 		"/devices/pci0000:01/0000:01:00.0/host0/target0:0:0/0:0:0:0": _("eSATA"),
 	},
 	"dm800sev2":
@@ -1120,6 +1125,27 @@ class MkfsTask(Task.LoggingTask):
 				return # don't log the progess
 		self.log.append(data)
 
+			def mountDreamboxData(self):
+		Log.d("Mounting Dreambox Data-Partition")
+		device = None
+		for d in [ "/dev/disk/by-label/dreambox-data", "/dev/dreambox-data"]:
+			if fileExists(d):
+				device = d
+				break
+		if not device:
+			Log.w("dreambox-data partition does not exist!")
+			return
+		mountpoint = "/data"
+		if Util.findInFstab(device, mountpoint):
+			Log.i("dreambox-data partition already available")
+			return
+		Log.w("Adding dreambox data partition to fstab")
+		extopts = ["x-systemd.automount", "nofail"]
+		if not fileExists(mountpoint):
+			createDir(mountpoint)
+		if fileExists(device):
+			self.modifyFstabEntry(device, mountpoint, extopts=extopts)
+		self._reloadSystemdForData()
 
 harddiskmanager = HarddiskManager()
 SystemInfo["ext4"] = isFileSystemSupported("ext4")
