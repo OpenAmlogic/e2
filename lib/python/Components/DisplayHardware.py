@@ -1,8 +1,8 @@
+from __future__ import print_function
 from enigma import eDisplayManager, IntList, eVideoPorts
 from Components.config import config, ConfigSelection, ConfigSubDict, ConfigSubsection, ConfigSlider, ConfigBoolean, ConfigNothing
 from Components.SystemInfo import SystemInfo
 from collections import defaultdict, OrderedDict
-
 
 class DisplayHardware:
 	instance = None
@@ -124,6 +124,24 @@ class DisplayHardware:
 			if not isinstance(config.av.allow_12bit, ConfigNothing):
 				config.av.allow_12bit.addNotifier(self.setHdr12Bit)
 
+		def setSyncMode(configElement):
+			open("/proc/stb/video/sync_mode", "w").write(configElement.value)
+
+		try:
+			have_sync_mode_switch = open("/proc/stb/video/sync_mode_choices", "r").read()[:-1].find("hold") != -1
+			if have_sync_mode_switch:
+				config.av.sync_mode = ConfigSelection(choices={
+				"slow": _("Slow Motion"),
+				"hold": _("Hold First Frame"),
+				"black": _("Black Screen")},
+				default = "slow")
+				config.av.sync_mode.addNotifier(setSyncMode)
+		except:
+			have_sync_mode_switch = False
+
+		if not have_sync_mode_switch:
+			config.av.sync_mode = ConfigNothing()
+
 	def setConfiguredMode(self):
 		currentPort = config.av.videoport.value
 		currentMode = config.av.videomode[config.av.videoport.value].value
@@ -199,15 +217,18 @@ class DisplayHardware:
 					elif eDisplayManager.RATE_50HZ in currentModeRates:
 						rate_value = self.rateIndexToKey(eDisplayManager.RATE_50HZ)
 			else:
-				print "Couldnt get content framerate, fallback to 50 hz"
+				print("Couldnt get content framerate, fallback to 50 hz")
 				rate_value = self.rateIndexToKey(eDisplayManager.RATE_50HZ) # 50hz default
-
 
 		newMode = self.getCurrentModeByValue(port_value, mode_value, rate_value)
 		activeMode = self._displayManager.getCurrentMode()
 
-		if (newMode.value != activeMode.value):
-			print "-> setting (port, mode, rate) => ", port_value, mode_value, rate_value
+		if newMode is None:
+			print("can't set new display mode because it's not available (port, mode, rate) => ", port_value, mode_value, rate_value)
+			return
+
+		if activeMode is None or newMode.value != activeMode.value:
+			print("-> setting (port, mode, rate) => ", port_value, mode_value, rate_value)
 			self._displayManager.setCurrentMode(newMode)
 
 		self.updateAspect(None)
@@ -232,14 +253,14 @@ class DisplayHardware:
 		policy_standard = config.av.policy_43.value
 		policy_widescreen = config.av.policy_169.value
 
-		print "-> setting (aspect, policy, policy2) => ", aspect, policy_standard, policy_widescreen
+		print("-> setting (aspect, policy, policy2) => ", aspect, policy_standard, policy_widescreen)
 		if(aspect != ""):
 			self._displayManager.setAspect(self.aspectKeyToIndex(aspect))
 
 		if(policy_standard != "" and policy_widescreen != ""):
 			self._displayManager.setPolicies(self.policyKeyToIndex(policy_standard), self.policyKeyToIndex(policy_widescreen))
 		else:
-			print "Error: Couldnt set video policy!"
+			print("Error: Couldnt set video policy!")
 
 	def updateModes(self, port_name):
 		# group by name, e.g. key=1080p, value=(1080p, 1080p20, 1080p25, ...)
@@ -282,7 +303,7 @@ class DisplayHardware:
 		self._displayManager.setScalerSharpness(cfgelement.value)
 
 	def saveMode(self, port, mode, rate):
-		print "saveMode", port, mode, rate
+		print("saveMode", port, mode, rate)
 		config.av.videoport.value = port
 		config.av.videoport.save()
 		if port in config.av.videomode:
