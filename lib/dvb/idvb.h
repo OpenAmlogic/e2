@@ -17,7 +17,7 @@
 #include <list>
 typedef std::list<uint16_t> CAID_LIST;
 
-#include <boost/any.hpp>
+//#include <boost/any.hpp>
 
 struct dvb_frontend_parameters;
 
@@ -368,7 +368,7 @@ public:
 
 	int getInfo(const eServiceReference &ref, int);  // implemented in lib/service/servicedvb.cpp
 	std::string getInfoString(const eServiceReference &ref, int);  // implemented in lib/service/servicedvb.cpp
-	boost::any getInfoObject(const eServiceReference &ref, int);  // implemented in lib/service/servicedvb.cpp
+	//boost::any getInfoObject(const eServiceReference &ref, int);  // implemented in lib/service/servicedvb.cpp
 
 		/* for filtering: */
 	int checkFilter(const eServiceReferenceDVB &ref, const eDVBChannelQuery &query);
