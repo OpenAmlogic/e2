@@ -8,6 +8,6 @@ components_libenigma_components_a_SOURCES = \
 componentsincludedir = $(pkgincludedir)/lib/components
 componentsinclude_HEADERS = \
 	components/file_eraser.h \
-	components/scan.h
-	components/decoder.h
+	components/scan.h \
+	components/decoder.h \
 	components/audioplayback.h
