@@ -577,7 +577,7 @@ public:
 	int isSaved() { return m_saved; }
 	int isDefault() { return m_default; }
 	void setLanguage(std::string language) { m_language = language; }
-	void setDescription(std::string description) { m_description = description; }
+
 };
 SWIG_ALLOW_OUTPUT_SIMPLE(iAudioTrackInfo);
 
