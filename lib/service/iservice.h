@@ -556,7 +556,6 @@ class iAudioTrackInfo: public iAudioType_ENUMS
 	int m_type;
 	int m_pid; /* for association with the stream. */
 	std::string m_language; /* iso639 */
-	std::string m_description;
 	bool m_saved;
 	bool m_default;
 
