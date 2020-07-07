@@ -91,34 +91,21 @@ struct eListboxStyle
 
 class eListbox: public eWidget
 {
-	SWIG_AUTODOC
-	E_DECLARE_PRIVATE(eListbox)
 	void updateScrollBar();
-	static bool wrap_around_default;
 public:
-	eListbox(eWidget *parent, bool withActionMap=true);
+	eListbox(eWidget *parent);
 	~eListbox();
-	
-	static void setWrapAroundDefault(bool on);	
 
 	PSignal0<void> selectionChanged;
 
 	enum {
-		layoutVertical,
-		layoutHorizontal,
-		layoutGrid,
-	};
-
-	enum {
 		showOnDemand,
 		showAlways,
-		showNever
+		showNever,
+		showLeft
 	};
-
 	void setScrollbarMode(int mode);
-	void setupScrollbar();
 	void setWrapAround(bool);
-	void setBacklogMode(bool);
 
 	void setContent(iListboxContent *content);
 
