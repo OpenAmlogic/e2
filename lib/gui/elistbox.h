@@ -91,8 +91,10 @@ struct eListboxStyle
 
 class eListbox: public eWidget
 {
-        SWIG_AUTODOC
+	SWIG_AUTODOC
+	E_DECLARE_PRIVATE(eListbox)
 	void updateScrollBar();
+	static bool wrap_around_default;
 public:
 	eListbox(eWidget *parent, bool withActionMap=true);
 	~eListbox();
