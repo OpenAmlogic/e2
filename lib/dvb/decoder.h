@@ -45,7 +45,7 @@ private:
 	void amvideo_event(int);
 
 	eDeviceEventManager *m_evtMgr;
-	void udev_event(stringMap msg);
+
 #endif
 	sigc::signal1<void, struct iTSMPEGDecoder::videoEvent> m_event;
 	int m_width, m_height, m_framerate, m_aspect, m_progressive;
