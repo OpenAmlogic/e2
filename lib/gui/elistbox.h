@@ -136,8 +136,6 @@ public:
 	};
 
 	void setItemHeight(int h);
-        void setMargin(const ePoint &margin);
-        void setSelectionZoom(float zoom);
 	void setSelectionEnable(int en);
 
 	void setBackgroundColor(gRGB &col);
