@@ -98,17 +98,27 @@ class eListbox: public eWidget
 public:
 	eListbox(eWidget *parent, bool withActionMap=true);
 	~eListbox();
+	
+	static void setWrapAroundDefault(bool on);	
 
 	PSignal0<void> selectionChanged;
 
 	enum {
+		layoutVertical,
+		layoutHorizontal,
+		layoutGrid,
+	};
+
+	enum {
 		showOnDemand,
 		showAlways,
-		showNever,
-		showLeft
+		showNever
 	};
+
 	void setScrollbarMode(int mode);
+	void setupScrollbar();
 	void setWrapAround(bool);
+	void setBacklogMode(bool);
 
 	void setContent(iListboxContent *content);
 
