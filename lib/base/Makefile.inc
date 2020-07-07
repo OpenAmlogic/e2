@@ -67,3 +67,4 @@ baseinclude_HEADERS = \
 	base/httpstream.h \
 	base/wrappers.h
 	base/io.h
+	base/connection.h
