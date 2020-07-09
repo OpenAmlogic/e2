@@ -119,6 +119,10 @@ class AVSwitch:
 	else:
 		modes["HDMI"] = ["720p", "1080i", "576p", "576i", "480p", "480i"]
 		widescreen_modes = {"720p", "1080i"}
+        if getBoxType() in ('dreamone',):
+                 modes['HDMI'] = ['1080p','720p','2160p','2160p30','1080i']
+                 widescreen_modes = {'1080p','720p','1080i','2160p','2160p30'}
+                 print '[AVSwitch] ######### dreamone modes set!!!!!.'
 
 	modes["YPbPr"] = modes["HDMI"]
 	if has_scartyuv:
@@ -163,6 +167,13 @@ class AVSwitch:
 
 	def readPreferredModes(self):
 		if config.av.edid_override.value == False:
+                    if getBoxType() in ('dreamone',):
+                        f = open('/sys/class//amhdmitx/amhdmitx0/disp_cap')
+                        modes = f.read()[:-1]
+                        f.close()
+                        self.modes_preferred = modes.splitlines()
+                        print '[AVSwitch] reading edid modes: ', self.modes_preferred
+                      else:
 			try:
 				f = open("/proc/stb/video/videomode_edid")
 				modes = f.read()[:-1]
@@ -193,6 +204,9 @@ class AVSwitch:
 			self.on_hotplug("HDMI") # must be HDMI
 
 	def is24hzAvailable(self):
+             if getBoxType() in ('dreamone',):
+                  self.has24pAvailable = False
+             else:
 		try:
 			self.has24pAvailable = os.access("/proc/stb/video/videomode_24hz", os.W_OK) and True or False
 		except IOError:
@@ -241,7 +255,15 @@ class AVSwitch:
 			mode_24 = mode_60
 			if force == 50:
 				mode_24 = mode_50
-
+                if getBoxType() in ('dreamone',):
+                    f = open('/sys/class/display/mode', 'w')
+                    f.write('576i50hz')
+                    f.close()
+                    amlmode = mode + rate.lower()
+                    f = open('/sys/class/display/mode', 'w')
+                    f.write(amlmode)
+                    f.close()
+                    print '##########################[AVSwitch] setting videomode to::::', amlmode
 		try:
 			f = open("/proc/stb/video/videomode_50hz", "w")
 			f.write(mode_50)
@@ -307,6 +329,9 @@ class AVSwitch:
 
 	# get a list with all modes, with all rates, for a given port.
 	def getModeList(self, port):
+            if getBoxType() in ('dreamone',):
+               res = [('2160p', ['50Hz','multi','60Hz','auto']),('1080p', ['50Hz','multi','60Hz','auto']),('720p', ['50Hz', 'multi', '60Hz']),('1080i', ['50Hz','multi','60Hz','auto']),('576p', ['50Hz']),('576i', ['50Hz']),('480p', ['60Hz']),('480i', ['60Hz'])]
+                   return res
 		res = [ ]
 		for mode in self.modes[port]:
 			# list all rates which are completely valid
@@ -315,6 +340,7 @@ class AVSwitch:
 			# if at least one rate is ok, add this mode
 			if len(rates):
 				res.append( (mode, rates) )
+		print '################################33  %s', res
 		return res
 
 	def createConfig(self, *args):
@@ -415,9 +441,9 @@ class AVSwitch:
 		print "[AVSwitch] setting policy: %s" % cfgelement.value
 		arw = "0"
 		try:
-			if about.getChipSetString() in ('meson-6', 'meson-64'):
-				if cfgelement.value == "panscan" : arw = "11"
-				if cfgelement.value == "letterbox" : arw = "12"
+			if getBoxType() in ('dreamone',):
+				if cfgelement.value == "panscan" : arw = "12"
+				if cfgelement.value == "letterbox" : arw = "11"
 				if cfgelement.value == "bestfit" : arw = "10"
 				open("/sys/class/video/screen_mode", "w").write(arw)
 			else:
