@@ -65,7 +65,4 @@ baseinclude_HEADERS = \
 	base/thread.h \
 	base/httpsstream.h \
 	base/httpstream.h \
-	base/wrappers.h \
-	base/io.h \
-	base/connection.h \
-	base/sigc.h
+	base/wrappers.h
