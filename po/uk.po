@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: OpenATV\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-30 14:34+0100\n"
-"PO-Revision-Date: 2020-12-06 10:39+0200\n"
+"PO-Revision-Date: 2020-18-06 10:39+0200\n"
 "Last-Translator: kvinto <badsystem@ukr.net>\n"
 "Language-Team: <sat-ukraine.info>\n"
 "Language: uk\n"
@@ -305,6 +305,9 @@ msgstr " <Немає Каналу>"
 
 msgid " <empty>"
 msgstr " <порожньо>"
+
+msgid " (1,6 GHz)"
+msgstr " (1,6 ГГц)"
 
 msgid " and"
 msgstr " і"
@@ -1395,9 +1398,6 @@ msgstr "1.2с"
 
 msgid "1.5s"
 msgstr "1.5с"
-
-msgid "1,6 GHz"
-msgstr "1,6 ГГц"
 
 msgid "1.7s"
 msgstr "1.7с"
@@ -4176,6 +4176,9 @@ msgstr "Виберіть затримку dvb для очікування від
 msgid "Choose how often to connect to IceTV server to check for updates."
 msgstr "Виберіть частоту підключення до сервера IceTV, щоб перевірити наявність оновлень."
 
+msgid "Choose how you want PIP mode to work."
+msgstr "Виберіть, як має працювати режим PIP."
+
 msgid "Choose style of main menus"
 msgstr "Виберіть стиль Головного Меню"
 
@@ -4370,7 +4373,7 @@ msgid "Color"
 msgstr "Колір"
 
 msgid "Color first in Extensions list"
-msgstr "Колір перший в списку розширень"
+msgstr "Зміна кольорів кнопок в списку розширень"
 
 msgid "Color format"
 msgstr "Формат кольору"
@@ -5352,6 +5355,15 @@ msgstr "День Мшс-Д"
 msgid "Day Mon-DD"
 msgstr "День Міс-ДД"
 
+msgid "Dayname D. Month Year"
+msgstr "Формат Д. Місяць Рік"
+
+msgid "Dayname D.M.Year"
+msgstr "Формат Д.М.Рік"
+
+msgid "Dayname D.MM.Year"
+msgstr "Формат Д.ММ.Рік"
+
 msgid "Dayname D Month Year"
 msgstr "Формат Д Місяць Рік"
 
@@ -5363,6 +5375,15 @@ msgstr "Формат Д/М/Рік"
 
 msgid "Dayname D/MM/Year"
 msgstr "Формат Д/ММ/Рік"
+
+msgid "Dayname DD. Month Year"
+msgstr "Формат ДД. Місяць Рік"
+
+msgid "Dayname DD.M.Year"
+msgstr "Формат ДД.М.Рік"
+
+msgid "Dayname DD.MM.Year"
+msgstr "Формат ДД.ММ.Рік"
 
 msgid "Dayname DD Month Year"
 msgstr "Формат ДД Місяць Рік"
@@ -6645,15 +6666,6 @@ msgstr ""
 msgid "Enigma2 skin selector"
 msgstr "Enigma2 Селектор скінів"
 
-msgid ""
-"Enjoy how IceTV can enhance your TV viewing experience by downloading the IceTV app to your smartphone or tablet. The IceTV app is available free from the iTunes App Store, the Google Play Store and the Windows Phone Store.\n"
-"\n"
-"Download it today!"
-msgstr ""
-"Переконайтеся, як IceTV може поліпшити враження від перегляду телевізора, завантаживши додаток IceTV на свій смартфон, або планшет. Додаток IceTV доступний безкоштовно з магазину додатків iTunes, магазину Google Play і магазину Windows Phone.\n"
-"\n"
-"Завантажте уже сьогодні!"
-
 msgid "Enter"
 msgstr "Ввести"
 
@@ -6924,6 +6936,23 @@ msgstr "Перегляд передачі:"
 msgid "Everyday"
 msgstr "Щоденно"
 
+msgid ""
+"Everything in one place - IceTV does it for you!\n"
+"\n"
+"Using the IceTV app or website, 'My Shows' is your place to go to. See the next 7 days of your recordings, favourite shows, keyword notifications, new series broadcasts, and our recommendations.\n"
+"\n"
+"Everything in one place. Simply select something new and press Record.\n"
+"\n"
+"IceTV's smartphone and tablet apps can be downloaded by scanning the code above."
+msgstr ""
+"Все в одному місці - IceTV робить це за Вас!\n"
+"\n"
+"Використовуйте в додатку, або на веб-сайті IceTV - 'Мої шоу'. Перегляньте наступні 7 днів своїх записів, улюблені шоу, сповіщення про вибрані передачі, трансляції нових серій та наші рекомендації.\n"
+"\n"
+"Все в одному місці. Просто виберіть щось нове і натисніть Запис.\n"
+"\n"
+"Програми для смартфонів та планшетів IceTV можна завантажити, скануючи код вище."
+
 msgid "Everywhere"
 msgstr "Усюди"
 
@@ -6951,8 +6980,8 @@ msgstr "Процес виконання:"
 msgid "Exif"
 msgstr "Exif"
 
-msgid "Existing or trial user"
-msgstr "Існуючий або пробний користувач"
+msgid "Existing or trial customer"
+msgstr "Існуючий клієнт, або пробний період"
 
 msgid "Exit"
 msgstr "Вийти"
@@ -7325,6 +7354,9 @@ msgstr "Перевірка файлової системи"
 msgid "Filesystem check your Harddisk"
 msgstr "Перевірка файлової системи Вашого жорсткого диска"
 
+msgid "Fill in channel EPGs from the broadcast EPG where there is no IceTV EPG for the channel"
+msgstr "Використовуйте стандартне ЕПГ каналів, для яких немає IceTV ЕПГ"
+
 msgid "Film-Noir"
 msgstr "Фільм-Нуар"
 
@@ -7348,6 +7380,9 @@ msgstr "Затримка фінальної прокрутки"
 
 msgid "Finance"
 msgstr "Фінанси"
+
+msgid "Find out more at %s"
+msgstr "Дізнайтеся більше на %s"
 
 msgid "Fine movement"
 msgstr "Точне переміщення"
@@ -8499,11 +8534,11 @@ msgstr "У більшості випадків цей параметр має б
 msgid ""
 "In order to allow you to access all the features of the IceTV smart recording service, we need to gather some basic information.\n"
 "\n"
-"If you already have an IceTV subscription or trial, please select 'Existing or trial user', if not, then select 'New user'."
+"If you already have an IceTV subscription or trial, please select 'Existing or trial customer', if not, then select 'New customer'"
 msgstr ""
 "Щоб дозволити Вам отримати доступ до всіх функцій служби інтелектуального запису IceTV, нам потрібно зібрати деяку основну інформацію.\n"
 "\n"
-"Якщо у Вас вже є підписка, або пробна версія IceTV, виберіть 'Існуючий, або тимчасовий користувач', якщо ні, то виберіть 'Новий користувач'."
+"Якщо у Вас вже є підписка, або пробна версія IceTV, виберіть 'Існуючий, або тимчасовий клієнт', якщо ні, то виберіть 'Новий клієнт'."
 
 msgid ""
 "In order to record a timer, a tuner was freed successfully:\n"
@@ -10355,6 +10390,9 @@ msgstr "Нові налаштування DXAndy"
 msgid "New Zealand"
 msgstr "Нова Зеландія"
 
+msgid "New customer"
+msgstr "Новий клієнт"
+
 msgid "New event info"
 msgstr "Інформація про нову передачу"
 
@@ -10372,9 +10410,6 @@ msgstr "Інформацію про нову програму"
 
 msgid "New timers location"
 msgstr "Розташування нових таймерів"
-
-msgid "New user"
-msgstr "Новий користувач"
 
 msgid "New version:"
 msgstr "Нова версія:"
@@ -11586,8 +11621,12 @@ msgstr "Будь ласка, введіть нову назву файлу"
 msgid "Please enter the old PIN code"
 msgstr "Будь ласка, введіть старий Пін-код"
 
-msgid "Please enter your email address. This is required for us to send you service announcements, account reminders, promotional offers and a welcome email."
-msgstr "Введіть свою електронну адресу. Це потрібно для того, щоб ми надсилали вам оголошення про послуги, нагадування про облікові записи, акційні пропозиції та повітання на електронну пошту."
+msgid ""
+"Please enter your email address, which will be your login.\n"
+"Via your account on the IceTV website you can choose to receive service announcements, account reminders and promotional offers."
+msgstr ""
+"Будь ласка, введіть свою електронну адресу, яка буде Вашим логіном.\n"
+"Через свій акаунт на веб-сайті IceTV ви можете отримувати повідомлення про послуги, нагадування про облікові записи та акційні пропозиції."
 
 msgid "Please enter your personal feed URL"
 msgstr "Будь ласка, введіть свій особистий адрес фіду"
@@ -16201,7 +16240,7 @@ msgstr "ТБ"
 #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
 msgid "TRANSLATOR_INFO"
 msgstr ""
-"Переклад:  kvinto - 12.06.2020\n"
+"Переклад:  kvinto - 08.07.2020\n"
 "Сторінка:    https://gisclub.tv\n"
 "                  kvinto@rambler.ru"
 
@@ -16968,6 +17007,9 @@ msgstr "Цей параметр дозволяє Вам приховати і с
 
 msgid "This option allows you to hide and sorting of the plugin browser."
 msgstr "Цей параметр дозволяє Вам приховати і сортувати плагіни в браузері."
+
+msgid "This option allows you to place the colored buttons (red, green, yellow, blue) to the first in the Extensions list."
+msgstr "Цей параметр дозволяє розмістити кольорові кнопки (червону, зелену, жовту, синю) на першу позицію у списку розширень."
 
 msgid "This option allows you to show menu number quick links."
 msgstr "Цей параметр дозволяє відображати швидкі посилання номера меню."

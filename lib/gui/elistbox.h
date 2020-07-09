@@ -50,7 +50,6 @@ protected:
 	virtual void paint(gPainter &painter, eWindowStyle &style, const ePoint &offset, int selected)=0;
 
 	virtual int getItemHeight()=0;
-	virtual int getItemWidth() { return -1; }
 
 	eListbox *m_listbox;
 #endif
