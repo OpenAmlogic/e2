@@ -2,7 +2,7 @@
 #define __dvb_idvb_h
 
 #ifndef SWIG
-
+#include <lib/base/sigc.h>
 #include <linux/dvb/frontend.h>
 #include <linux/dvb/version.h>
 #include <linux/dvb/video.h>

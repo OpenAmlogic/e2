@@ -24,6 +24,7 @@ driverinclude_HEADERS = \
 	driver/rcinput.h \
 	driver/rcinput_swig.h \
 	driver/rfmod.h \
+	driver/alsa.h \
 	driver/hdmi_cec.h
 
 if HAVE_LIBSDL
