@@ -30,7 +30,7 @@ if getBrandOEM() in ('azbox',):
 else:
 	config.av.edid_override = ConfigYesNo(default = False)
 
-class AVSwitch:
+class AVSwitch():
 	hw_type = HardwareInfo().get_device_name()
 	rates = { } # high-level, use selectable modes.
 	modes = { }  # a list of (high-level) modes for a certain port.
@@ -120,9 +120,9 @@ class AVSwitch:
 		modes["HDMI"] = ["720p", "1080i", "576p", "576i", "480p", "480i"]
 		widescreen_modes = {"720p", "1080i"}
         if getBoxType() in ('dreamone',):
-                 modes['HDMI'] = ['1080p','720p','2160p','2160p30','1080i']
-                 widescreen_modes = {'1080p','720p','1080i','2160p','2160p30'}
-                 print '[AVSwitch] ######### dreamone modes set!!!!!.'
+                 modes['HDMI'] = ["1080p","720p","2160p","2160p30","1080i"]
+                 widescreen_modes = {"1080p","720p","1080i","2160p","2160p30"}
+                 print "[AVSwitch] # dreamone/dreamtwo modes set!."
 
 	modes["YPbPr"] = modes["HDMI"]
 	if has_scartyuv:
@@ -175,16 +175,16 @@ class AVSwitch:
                         print '[AVSwitch] reading edid modes: ', self.modes_preferred
                       else:
 			try:
-				f = open("/proc/stb/video/videomode_edid")
-				modes = f.read()[:-1]
-				f.close()
-				self.modes_preferred = modes.split(' ')
-				print "[AVSwitch] reading edid modes: ", self.modes_preferred
+			    f = open("/proc/stb/video/videomode_edid")
+			    modes = f.read()[:-1]
+		            f.close()
+			    self.modes_preferred = modes.split(' ')
+			    print "[AVSwitch] reading edid modes: ", self.modes_preferred
 			except IOError:
 				print "[AVSwitch] reading edid modes failed, using all modes"
 				try:
 					f = open("/proc/stb/video/videomode_preferred")
-					modes = f.read()[:-1]
+				    	modes = f.read()[:-1]
 					f.close()
 					self.modes_preferred = modes.split(' ')
 					print "[AVSwitch] reading _preferred modes: ", self.modes_preferred
@@ -332,14 +332,15 @@ class AVSwitch:
             if getBoxType() in ('dreamone',):
                res = [('2160p', ['50Hz','multi','60Hz','auto']),('1080p', ['50Hz','multi','60Hz','auto']),('720p', ['50Hz', 'multi', '60Hz']),('1080i', ['50Hz','multi','60Hz','auto']),('576p', ['50Hz']),('576i', ['50Hz']),('480p', ['60Hz']),('480i', ['60Hz'])]
                    return res
-		res = [ ]
+		res = []
 		for mode in self.modes[port]:
 			# list all rates which are completely valid
-			rates = [rate for rate in self.rates[mode] if self.isModeAvailable(port, mode, rate)]
+			rates = [rate for rate in self.rates[mode] if self.isModeAvailable(port, mode, rate) ]
 
 			# if at least one rate is ok, add this mode
 			if len(rates):
-				res.append( (mode, rates) )
+				res.append( (mode, rates))
+
 		print '################################33  %s', res
 		return res
 
@@ -481,11 +482,12 @@ class AVSwitch:
 				try:
 					aspect_str = open("/proc/stb/vmpeg/0/aspect", "r").read()
 					if aspect_str == "1": # 4:3
-						ret = (4,3)
+						ret = (4, 3)
 				except IOError:
 					pass
+
 			else:  # 4:3
-				ret = (4,3)
+				ret = (4, 3)
 		return ret
 
 	def getFramebufferScale(self):

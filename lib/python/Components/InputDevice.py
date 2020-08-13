@@ -52,6 +52,7 @@ class inputDevices:
 					continue
 				if name == "dreambox remote control (native)" and config.misc.rcused.value in (0, 2):
 					continue
+				if name == "dreambox front panel":
 				if name in self.BLACKLIST:
 					continue
 				self.Devices[evdev] = {'name': name, 'type': self.getInputDeviceType(name),'enabled': False, 'configuredName': None }

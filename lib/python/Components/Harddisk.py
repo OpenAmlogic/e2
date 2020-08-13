@@ -637,7 +637,7 @@ class Partition:
 		return ''
 
 DEVICEDB = \
-       {"one":
+       {"dreamone":
                {
                        "/devices/platform/ff500000.dwc3/xhci-hcd.0.auto/usb1": _("USB 2.0 (Back, inner)"),
                        "/devices/platform/ff500000.dwc3/xhci-hcd.0.auto/usb2": _("USB 3.0 (Back, outer)"),
