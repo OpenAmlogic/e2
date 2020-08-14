@@ -744,7 +744,7 @@ DEVICEDB = \
 	},
 	"dm500hd":
 	{
-l		"/devices/pci0000:01/0000:01:00.0/host1/target1:0:0/1:0:0:0": _("eSATA"),
+		"/devices/pci0000:01/0000:01:00.0/host1/target1:0:0/1:0:0:0": _("eSATA"),
 		"/devices/pci0000:01/0000:01:00.0/host0/target0:0:0/0:0:0:0": _("eSATA"),
 	},
 	"dm800sev2":
@@ -1125,7 +1125,7 @@ class MkfsTask(Task.LoggingTask):
 				return # don't log the progess
 		self.log.append(data)
 
-			def mountDreamboxData(self):
+	def mountDreamboxData(self):
 		Log.d("Mounting Dreambox Data-Partition")
 		device = None
 		for d in [ "/dev/disk/by-label/dreambox-data", "/dev/dreambox-data"]:
