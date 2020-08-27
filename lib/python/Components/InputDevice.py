@@ -23,49 +23,45 @@ IOC_READ = 2L
 def EVIOCGNAME(length):
 	return (IOC_READ<<IOC_DIRSHIFT)|(length<<IOC_SIZESHIFT)|(0x45<<IOC_TYPESHIFT)|(0x06<<IOC_NRSHIFT)
 
-
 class inputDevices:
-        BLACKLIST = ("dreambox front panel", "cec_input")
+	BLACKLIST = ("dreambox front panel", "cec_input")
 	def __init__(self):
 		self.Devices = {}
 		self.currentDevice = ""
 		self.getInputDevices()
-
+	
 	def getInputDevices(self):
-		devices = listdir("/dev/input/")
+		for evdev in sorted(listdir("/dev/input")):
+			if not evdev.startswith("event"):
+				continue
 
-		for evdev in devices:
 			try:
-				buffer = "\0"*512
-				self.fd = os_open("/dev/input/" + evdev, O_RDWR | O_NONBLOCK)
-				self.name = ioctl(self.fd, EVIOCGNAME(256), buffer)
-				self.name = self.name[:self.name.find("\0")]
-				if str(self.name).find("Keyboard") != -1:
-					self.name = 'keyboard'
-				os_close(self.fd)
-				
-				name = buf[:size - 1]
-				if name:
-					if name == "aml_keypad":
-						name = "dreambox advanced remote control (native)"
-					if name == "dreambox advanced remote control (native)" and config.misc.rcused.value not in (0, 2):
-						continue
-					if name == "dreambox remote control (native)" and config.misc.rcused.value in (0, 2):
-						continue
-					if name == "dreambox front panel":
-						if name in self.BLACKLIST:
-							continue
+				fd = os_open("/dev/input/%s" % evdev, O_RDONLY | O_CLOEXEC)
+			except:
+				continue
+
+			buf = (c_char * 256)()
+			try:
+				size = ioctl(fd, EVIOCGNAME(256), buf, True)
+			except:
+				os_close(fd)
+				continue
+
+			os_close(fd)
+			if size <= 0:
+				continue
+
+			name = six.ensure_str(buf[:size - 1])
+			if name:
+				if name == "aml_keypad":
+					name = "dreambox advanced remote control (native)"
+				if name == "dreambox advanced remote control (native)" and config.misc.rcused.value not in (0, 2):
+					continue
+				if name == "dreambox remote control (native)" and config.misc.rcused.value in (0, 2):
+					continue
+				if name in self.BLACKLIST:
+					continue
 				self.Devices[evdev] = {'name': name, 'type': self.getInputDeviceType(name),'enabled': False, 'configuredName': None }
-				
-			except (IOError,OSError), err:
-				print '[iInputDevices] getInputDevices  <ERROR: ioctl(EVIOCGNAME): ' + str(err) + ' >'
-				self.name = None
-
-			if self.name:
-				self.Devices[evdev] = {'name': self.name, 'type': self.getInputDeviceType(self.name),'enabled': False, 'configuredName': None }
-				if getBoxType().startswith('et'):
-					self.setDefaults(evdev) # load default remote control "delay" and "repeat" values for ETxxxx ("QuickFix Scrollspeed Menues" proposed by Xtrend Support)
-
 
 	def getInputDeviceType(self,name):
 		if "remote control" in name:
