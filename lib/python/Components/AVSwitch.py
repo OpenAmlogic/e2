@@ -121,8 +121,8 @@ class AVSwitch():
 		modes["HDMI"] = ["720p", "1080i", "576p", "576i", "480p", "480i"]
 		widescreen_modes = {"720p", "1080i"}
         if getBoxType() in ('dreamone',):
-                 modes['HDMI'] = ["1080p","720p","2160p","2160p30","1080i"]
-                 widescreen_modes = {"1080p","720p","1080i","2160p","2160p30"}
+                 modes['HDMI'] = ["1080p", "720p", "2160p", "2160p30", "1080i"]
+                 widescreen_modes = {"1080p", "720p", "1080i", "2160p", "2160p30"}
                  print "[AVSwitch] # dreamone/dreamtwo modes set!."
 
 	modes["YPbPr"] = modes["HDMI"]
