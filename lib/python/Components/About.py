@@ -73,7 +73,7 @@ def getCPUSpeedString():
 		return "1,7 GHz"
 	elif getMachineBuild() in ('alien5',):
 		return "2,0 GHz"
-	elif getMachineBuild() in ('dreamone','dreamtwo',):
+	elif getMachineBuild() in ('dreamone','dreamtwo'):
 		return "1,8 GHz"
 	elif getMachineBuild() in ('vuduo4k',):
 		return "2,1 GHz"
