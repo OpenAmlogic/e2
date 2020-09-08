@@ -68,4 +68,5 @@ baseinclude_HEADERS = \
 	base/wrappers.h \
 	base/connection.h \
 	base/sigc.h \
+	base/wrappers.h \
 	base/io.h

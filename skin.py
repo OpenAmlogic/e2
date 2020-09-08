@@ -372,16 +372,26 @@ def parseParameter(s):
 	else:  # Integer.
 		return int(s)
 
+def morphRcImagePath(value):
+	if rc_model.rcIsDefault() is False:
+		if value == '/usr/share/enigma2/skin_default/rc.png' or value == '/usr/share/enigma2/skin_default/rcold.png':
+			value = rc_model.getRcLocation() + 'rc.png'
+		elif value == '/usr/share/enigma2/skin_default/rc0.png' or value == '/usr/share/enigma2/skin_default/rc1.png' or value == '/usr/share/enigma2/skin_default/rc2.png':
+			value = rc_model.getRcLocation() + 'rc.png'
+	return value
+
 def loadPixmap(path, desktop):
+	cached = False
 	option = path.find("#")
 	if option != -1:
+		options = path[option+1:].split(',')
 		path = path[:option]
-	if rc_model.rcIsDefault() is False and basename(path) in ("rc.png", "rc0.png", "rc1.png", "rc2.png", "oldrc.png"):
-		path = rc_model.getRcImg()
-	pixmap = LoadPixmap(path, desktop)
-	if pixmap is None:
-		raise SkinError("Pixmap file '%s' not found" % path)
-	return pixmap
+		cached = "cached" in options
+	ptr = LoadPixmap(morphRcImagePath(path), desktop, cached)
+	if ptr is None:
+#		raise SkinError("pixmap file %s not found!" % path)
+		print("pixmap file %s not found!" % path)
+	return ptr
 
 def collectAttributes(skinAttributes, node, context, skinPath=None, ignore=(), filenames=frozenset(("pixmap", "pointer", "seek_pointer", "backgroundPixmap", "selectionPixmap", "sliderPixmap", "scrollbarSliderPicture", "scrollbarbackgroundPixmap", "scrollbarBackgroundPicture"))):
 	size = None
