@@ -49,8 +49,6 @@ def getChipSetString():
 		return "7251S"
 	elif getMachineBuild() in ('alien5',):
 		return "S905D"
-	elif getMachineBuild() in ('dreamone','dreamonetwo'):
-		return "S922X"
 	else:
 		try:
 			f = open('/proc/stb/info/chipset', 'r')
@@ -73,8 +71,6 @@ def getCPUSpeedString():
 		return "1,7 GHz"
 	elif getMachineBuild() in ('alien5',):
 		return "2,0 GHz"
-	elif getMachineBuild() in ('dreamone','dreamtwo'):
-		return "1,8 GHz"
 	elif getMachineBuild() in ('vuduo4k',):
 		return "2,1 GHz"
 	elif getMachineBuild() in ('hd51','hd52','sf4008','vs1500','et1x000','h7','et13000','sf5008','osmio4k','osmio4kplus','osmini4k'):
@@ -114,7 +110,7 @@ def getCPUString():
 		return "Broadcom"
 	elif getMachineBuild() in ('gbmv200','u41','u42','u43','u51','u52','u53','u532','u533','u54','u55','u56','u5','u5pvr','h9','h9combo','h10','cc1','sf8008','sf8008m','hd60','hd61','i55plus','ustym4kpro','beyonwizv2','viper4k','v8plus','multibox'):
 		return "Hisilicon"
-	elif getMachineBuild() in ('alien5','dreamone','dreamtwo'):
+	elif getMachineBuild() in ('alien5',):
 		return "AMlogic"
 	else:
 		try:
@@ -147,8 +143,6 @@ def getCpuCoresString():
 						cores = 4
 					elif getMachineBuild() in ('u41','u42','u43'):
 						cores = 1
-					elif getMachineBuild() in ('dreamone','dreamtwo'):
-						cores = 6
 					elif int(splitted[1]) > 0:
 						cores = 2
 					else:

@@ -120,10 +120,10 @@ class AVSwitch():
 	else:
 		modes["HDMI"] = ["720p", "1080i", "576p", "576i", "480p", "480i"]
 		widescreen_modes = {"720p", "1080i"}
-	if getBoxType() in ('dreamone', 'dreamtwo'):
-		modes['HDMI'] = ["1080p", "720p", "2160p", "2160p30", "1080i"]
-		widescreen_modes = {"1080p", "720p", "1080i", "2160p", "2160p30"}
-		print "[AVSwitch] # dreamone/dreamtwo modes set!."
+        if getBoxType() in ('dreamone',):
+                 modes['HDMI'] = ["1080p", "720p", "2160p", "2160p30", "1080i"]
+                 widescreen_modes = {"1080p", "720p", "1080i", "2160p", "2160p30"}
+                 print "[AVSwitch] # dreamone/dreamtwo modes set!."
 
 	modes["YPbPr"] = modes["HDMI"]
 	if has_scartyuv:
@@ -167,52 +167,51 @@ class AVSwitch():
 		return modes.split(' ')
 
 	def readPreferredModes(self):
-		if config.av.edid_override.value == False:
-			if getBoxType() in ('dreamone', 'dreamtwo'):
-				f = open('/sys/class//amhdmitx/amhdmitx0/disp_cap')
-				modes = f.read()[:-1]
-				f.close()
-				self.modes_preferred = modes.splitlines()
-				print '[AVSwitch] reading edid modes: ', self.modes_preferred
-			else:
-				try:
-					f = open('/proc/stb/video/videomode_edid')
-					modes = f.read()[:-1]
-					f.close()
-					self.modes_preferred = modes.split(' ')
-					print '[AVSwitch] reading edid modes: ', self.modes_preferred
-				except IOError:
-					print '[AVSwitch] reading edid modes failed, using all modes'
-					try:
-						f = open('/proc/stb/video/videomode_preferred')
-						modes = f.read()[:-1]
-						f.close()
-						self.modes_preferred = modes.split(' ')
-						print '[AVSwitch] reading _preferred modes: ', self.modes_preferred
-					except IOError:
-						print '[AVSwitch] reading preferred modes failed, using all modes'
-						self.modes_preferred = self.readAvailableModes()
+            if config.av.edid_override.value == False:
+                if getBoxType() in ('dreamone',):
+                    f = open('/sys/class//amhdmitx/amhdmitx0/disp_cap')
+                    modes = f.read()[:-1]
+                    f.close()
+                    self.modes_preferred = modes.splitlines()
+                    print '[AVSwitch] reading edid modes: ', self.modes_preferred
+                else:
+                    try:
+                        f = open('/proc/stb/video/videomode_edid')
+                        modes = f.read()[:-1]
+                        f.close()
+                        self.modes_preferred = modes.split(' ')
+                        print '[AVSwitch] reading edid modes: ', self.modes_preferred
+                    except IOError:
+                        print '[AVSwitch] reading edid modes failed, using all modes'
+                        try:
+                            f = open('/proc/stb/video/videomode_preferred')
+                            modes = f.read()[:-1]
+                            f.close()
+                            self.modes_preferred = modes.split(' ')
+                            print '[AVSwitch] reading _preferred modes: ', self.modes_preferred
+                        except IOError:
+                            print '[AVSwitch] reading preferred modes failed, using all modes'
+                            self.modes_preferred = self.readAvailableModes()
 
-		else:
-			self.modes_preferred = self.readAvailableModes()
-			print '[AVSwitch] used default modes: ', self.modes_preferred
-		if len(self.modes_preferred) <= 2:
-			print '[AVSwitch] preferend modes not ok, possible driver failer, len=', len(self.modes_preferred)
-			self.modes_preferred = self.readAvailableModes()
-		if self.modes_preferred != self.last_modes_preferred:
-			self.last_modes_preferred = self.modes_preferred
-			self.on_hotplug('HDMI')
+            else:
+                self.modes_preferred = self.readAvailableModes()
+                print '[AVSwitch] used default modes: ', self.modes_preferred
+            if len(self.modes_preferred) <= 2:
+                print '[AVSwitch] preferend modes not ok, possible driver failer, len=', len(self.modes_preferred)
+                self.modes_preferred = self.readAvailableModes()
+            if self.modes_preferred != self.last_modes_preferred:
+                self.last_modes_preferred = self.modes_preferred
+                self.on_hotplug('HDMI')
 
 	def is24hzAvailable(self):
-		if getBoxType() in ('dreamone', 'dreamtwo'):
+             if getBoxType() in ('dreamone',):
+                  self.has24pAvailable = False
+             else:
+		try:
+			self.has24pAvailable = os.access("/proc/stb/video/videomode_24hz", os.W_OK) and True or False
+		except IOError:
+			print "[AVSwitch] failed to read video choices 24hz ."
 			self.has24pAvailable = False
-		else:
-			try:
-				self.has24pAvailable = os.access("/proc/stb/video/videomode_24hz", os.W_OK) and True or False
-			except IOError:
-				print "[AVSwitch] failed to read video choices 24hz ."
-				self.has24pAvailable = False
-
 		SystemInfo["have24hz"] = self.has24pAvailable
 
 	# check if a high-level mode with a given rate is available.
@@ -256,16 +255,15 @@ class AVSwitch():
 			mode_24 = mode_60
 			if force == 50:
 				mode_24 = mode_50
-				
-		if getBoxType() in ('dreamone', 'dreamtwo'):
-			f = open('/sys/class/display/mode', 'w')
-			f.write('576i50hz')
-			f.close()
-			amlmode = mode + rate.lower()
-			f = open('/sys/class/display/mode', 'w')
-			f.write(amlmode)
-			f.close()
-		print '#[AVSwitch] setting videomode to::::', amlmode
+                if getBoxType() in ('dreamone',):
+                    f = open('/sys/class/display/mode', 'w')
+                    f.write('576i50hz')
+                    f.close()
+                    amlmode = mode + rate.lower()
+                    f = open('/sys/class/display/mode', 'w')
+                    f.write(amlmode)
+                    f.close()
+                    print '##########################[AVSwitch] setting videomode to::::', amlmode
 		try:
 			f = open("/proc/stb/video/videomode_50hz", "w")
 			f.write(mode_50)
@@ -331,11 +329,11 @@ class AVSwitch():
 
 	# get a list with all modes, with all rates, for a given port.
 	def getModeList(self, port):
-		if getBoxType() in ('dreamone', 'dreamtwo'):
-			res = [('2160p', ['50Hz', 'multi', '60Hz', 'auto']),
-			('1080p', ['50Hz', 'multi', '60Hz', 'auto']),
-			('720p', ['50Hz', 'multi', '60Hz']), ('1080i', ['50Hz', 'multi', '60Hz', 'auto']),
-			('576p', ['50Hz']), ('576i', ['50Hz']), ('480p', ['60Hz']), ('480i', ['60Hz'])]
+		if getBoxType() in ('dreamone',):
+			res = [('2160p',['50Hz','multi','60Hz','auto']),
+			('1080p',['50Hz','multi','60Hz','auto']),
+			('720p',['50Hz','multi','60Hz']),('1080i',['50Hz','multi','60Hz','auto']),
+			('576p', ['50Hz']),('576i',['50Hz']),('480p',['60Hz']),('480i',['60Hz'])]
 		return res
 		res = []
 		for mode in self.modes[port]:
@@ -444,7 +442,7 @@ class AVSwitch():
 		print "[AVSwitch] setting policy: %s" % cfgelement.value
 		arw = "0"
 		try:
-			if getBoxType() in ('dreamone', 'dreamtwo'):
+			if getBoxType() in ('dreamone',):
 				if cfgelement.value == "panscan" : arw = "12"
 				if cfgelement.value == "letterbox" : arw = "11"
 				if cfgelement.value == "bestfit" : arw = "10"

@@ -218,6 +218,7 @@ class NumericalTextInput:
 					mode = "Search"
 				if isinstance(mapping, str):  # NOTE: Legacy interface for previous and deprecated versions of NumericalTextInput.
 					mode = mapping
+			self.mapping = []
 			index = MODES.get(str(mode).upper(), 0)
 			self.mapping = []
 			for num in range(0, 10):
@@ -233,7 +234,7 @@ class NumericalTextInput:
 		# the listed characters, this restriction is not enforced for
 		# external keyboard input!
 		self.useableChars = "".join(self.mapping)  # This limits data entry to only characters in the mapping lists.
-		# print("[NumericalTextInput] DEBUG: Mode='%s', Index=%d, Character set: '%s'" % (mode, index, "".join(sorted(self.useableChars))))
+		# print "[NumericalTextInput] DEBUG: Mode='%s', Index=%d, Character set: '%s'" % (mode, index, "".join(sorted(self.useableChars)))
 		self.lastKey = -1
 		self.pos = -1
 
