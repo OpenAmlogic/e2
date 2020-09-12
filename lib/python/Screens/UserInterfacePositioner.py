@@ -19,9 +19,12 @@ def getFilePath(setting):
 		return "/proc/stb/fb/dst_%s" % (setting)
 
 def setPositionParameter(parameter, configElement):
-	f = open(getFilePath(parameter), "w")
-	f.write('%08X\n' % configElement.value)
-	f.close()
+	try:
+		f = open(getFilePath(parameter), "w")
+		f.write('%08X\n' % configElement.value)
+		f.close()
+	except:
+		pass
 	if fileExists(getFilePath("apply")):
 		f = open(getFilePath("apply"), "w")
 		f.write('1')
