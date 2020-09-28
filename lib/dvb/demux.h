@@ -18,14 +18,14 @@ public:
 	virtual ~eDVBDemux();
 
 	RESULT setSourceFrontend(int fenum);
-	int getSource() { return source; }
-	RESULT setSourcePVR(int pvrnum);
-	int getDvrId() { return m_dvr_id; }
+	int getSource() const { return source; }
+	RESULT setSourcePVR(const std::string &pvr_source);
+	std::string getSourcePVR() const { return pvr_source; }
 
 	RESULT createSectionReader(eMainloop *context, ePtr<iDVBSectionReader> &reader);
 	RESULT createPESReader(eMainloop *context, ePtr<iDVBPESReader> &reader);
 	RESULT createTSRecorder(ePtr<iDVBTSRecorder> &recorder, unsigned int packetsize = 188, bool streaming=false);
-	RESULT getMPEGDecoder(ePtr<iTSMPEGDecoder> &reader, int index);
+	RESULT getMPEGDecoder(ePtr<iTSMPEGDecoder> &reader, int decoder_id);
 	RESULT getSTC(pts_t &pts, int num);
 	RESULT getCADemuxID(uint8_t &id) { id = demux; return 0; }
 	RESULT getCAAdapterID(uint8_t &id) { id = adapter; return 0; }
@@ -36,6 +36,7 @@ public:
 	int getRefCount() { return ref; }
 private:
 	int adapter, demux, source;
+	std::string pvr_source;
 
 	int m_dvr_busy;
 	int m_dvr_id;
@@ -68,11 +69,14 @@ class eDVBSectionReader: public iDVBSectionReader, public sigc::trackable
 	int checkcrc;
 	void data(int);
 	ePtr<eSocketNotifier> notifier;
+	Slot0<__u8*> m_buffer_func;
+	bool m_have_external_buffer_func;
 public:
 	eDVBSectionReader(eDVBDemux *demux, eMainloop *context, RESULT &res);
 	virtual ~eDVBSectionReader();
 	RESULT setBufferSize(int size);
 	RESULT start(const eDVBSectionFilterMask &mask);
+	RESULT startWithExternalBufferFunc(const eDVBSectionFilterMask &mask, const Slot0<__u8*> &buffer_func);
 	RESULT stop();
 	RESULT connectRead(const sigc::slot1<void,const uint8_t*> &read, ePtr<eConnection> &conn);
 };
@@ -175,6 +179,7 @@ private:
 	RESULT startPID(int pid);
 	void stopPID(int pid);
 
+	eDVBRecordFileThread *m_thread;
 	void filepushEvent(int event);
 
 	std::map<int,int> m_pids;
