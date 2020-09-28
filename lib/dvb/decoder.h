@@ -24,6 +24,7 @@ public:
 	void unfreeze();
 	int getPTS(pts_t &now);
 	virtual ~eDVBAudio();
+	void setSTCValidState(int state);
 };
 
 class eDVBVideo: public iObject, public sigc::trackable
@@ -75,6 +76,7 @@ public:
 	eDVBPCR(eDVBDemux *demux, int dev);
 	int startPid(int pid);
 	void stop();
+	void restart();
 	virtual ~eDVBPCR();
 };
 
@@ -124,6 +126,7 @@ private:
 	void demux_event(int event);
 	void video_event(struct videoEvent);
 	sigc::signal1<void, struct videoEvent> m_video_event;
+	sigc::signal1<void, int> m_state_event;
 	int m_video_clip_fd;
 	ePtr<eTimer> m_showSinglePicTimer;
 	void finishShowSinglePic(); // called by timer
@@ -174,12 +177,16 @@ public:
 		/* what 0=auto, 1=video, 2=audio. */
 	RESULT getPTS(int what, pts_t &pts);
 	RESULT connectVideoEvent(const sigc::slot1<void, struct videoEvent> &event, ePtr<eConnection> &connection);
+	RESULT connectStateEvent(const sigc::slot1<void, int> &event, ePtr<eConnection> &connection);
+	int getVideoDecoderId();
 	int getVideoWidth();
 	int getVideoHeight();
 	int getVideoProgressive();
 	int getVideoFrameRate();
 	int getVideoAspect();
 	int getVideoGamma();
+	int getState();
+	const char* getEotf();
 	static RESULT setHwPCMDelay(int delay);
 	static RESULT setHwAC3Delay(int delay);
 };
