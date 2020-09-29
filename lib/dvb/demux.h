@@ -179,7 +179,7 @@ private:
 	RESULT startPID(int pid);
 	void stopPID(int pid);
 
-	eDVBRecordFileThread *m_thread;
+
 	void filepushEvent(int event);
 
 	std::map<int,int> m_pids;
