@@ -324,6 +324,13 @@ class eDVBService: public iStaticServiceInformation
 	int *m_cache;
 	void initCache();
 	void copyCache(int *source);
+	
+	std::string m_service_name, m_service_name_sort;
+	std::string m_provider_name;
+	int m_flags;
+	CAID_LIST m_ca;
+	int m_running_state; // only valid for services on onid 0x85 yet...
+	 
 public:
 	enum cacheID
 	{
@@ -524,6 +531,7 @@ public:
 	enum { stateIdle, stateTuning, stateFailed, stateLock, stateLostLock, stateClosed };
 	enum { toneOff, toneOn };
 	enum { voltageOff, voltage13, voltage18, voltage13_5, voltage18_5 };
+	enum { canDVBS2Multistream = 1 };
 };
 
 class iDVBFrontendStatus:  public iDVBFrontend_ENUMS, public iObject
@@ -822,7 +830,9 @@ public:
 			eventSizeChanged = VIDEO_EVENT_SIZE_CHANGED,
 			eventFrameRateChanged = VIDEO_EVENT_FRAME_RATE_CHANGED,
 			eventProgressiveChanged = 16,
-			eventGammaChanged = 17
+			eventGammaChanged = 17,
+			eventPtsValid = 32,
+			eventVideoDiscontDetected = 64,
 		} type;
 		unsigned char aspect;
 		unsigned short height;
