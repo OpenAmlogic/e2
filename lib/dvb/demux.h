@@ -18,14 +18,14 @@ public:
 	virtual ~eDVBDemux();
 
 	RESULT setSourceFrontend(int fenum);
-	int getSource() const { return source; }
-	RESULT setSourcePVR(const std::string &pvr_source);
-	std::string getSourcePVR() const { return pvr_source; }
+	int getSource() { return source; }
+	RESULT setSourcePVR(int pvrnum);
+	int getDvrId() { return m_dvr_id; }
 
 	RESULT createSectionReader(eMainloop *context, ePtr<iDVBSectionReader> &reader);
 	RESULT createPESReader(eMainloop *context, ePtr<iDVBPESReader> &reader);
 	RESULT createTSRecorder(ePtr<iDVBTSRecorder> &recorder, unsigned int packetsize = 188, bool streaming=false);
-	RESULT getMPEGDecoder(ePtr<iTSMPEGDecoder> &reader, int decoder_id);
+	RESULT getMPEGDecoder(ePtr<iTSMPEGDecoder> &reader, int index);
 	RESULT getSTC(pts_t &pts, int num);
 	RESULT getCADemuxID(uint8_t &id) { id = demux; return 0; }
 	RESULT getCAAdapterID(uint8_t &id) { id = adapter; return 0; }
@@ -36,7 +36,6 @@ public:
 	int getRefCount() { return ref; }
 private:
 	int adapter, demux, source;
-	std::string pvr_source;
 
 	int m_dvr_busy;
 	int m_dvr_id;
