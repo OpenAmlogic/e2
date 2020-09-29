@@ -324,11 +324,7 @@ class eDVBService: public iStaticServiceInformation
 	int *m_cache;
 	void initCache();
 	void copyCache(int *source);
-	
-	std::string m_service_name, m_service_name_sort;
-	std::string m_provider_name;
-	int m_flags;
-	CAID_LIST m_ca;
+
 	int m_running_state; // only valid for services on onid 0x85 yet...
 	 
 public:
