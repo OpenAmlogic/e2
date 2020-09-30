@@ -8,7 +8,6 @@ class iDVBSectionReader: public iObject
 public:
 	virtual RESULT setBufferSize(int size)=0;
 	virtual RESULT start(const eDVBSectionFilterMask &mask)=0;
-	virtual RESULT startWithExternalBufferFunc(const eDVBSectionFilterMask &mask, const Slot0<__u8*> &buffer_func)=0;
 	virtual RESULT stop()=0;
 	virtual RESULT connectRead(const sigc::slot1<void,const uint8_t*> &read, ePtr<eConnection> &conn)=0;
 	virtual ~iDVBSectionReader() { };
