@@ -81,7 +81,7 @@ int eDVBAudio::startPid(int pid, int type)
 #else
 	 	pes.flags    = 0;
 #endif
-		eDebugNoNewLineStart("[eDVBAudio%d] DMX_SET_PES_FILTER pid=0x%02x ", m_dev, pid);
+		eDebugNoNewLineStart("[eDVBAudio%d] DMX_SET_PES_FILTER pid=0x%04x ", m_dev, pid);
 		if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
 		{
 			eDebugNoNewLine("failed: %m");
@@ -136,6 +136,12 @@ int eDVBAudio::startPid(int pid, int type)
 #else
 		bypass = 0x22;
 #endif
+		case aPCM:
+#ifdef DREAMBOX
+		bypass = 0xf;
+#else
+		bypass = 0x30;
+#endif				
 		break;
 		}
 
@@ -392,7 +398,7 @@ int eDVBVideo::startPid(int pid, int type)
 #else
 		pes.flags    = 0;
 #endif
-		eDebugNoNewLineStart("[eDVBVideo%d] DMX_SET_PES_FILTER pid=0x%02x ", m_dev, pid);
+		eDebugNoNewLineStart("[eDVBVideo%d] DMX_SET_PES_FILTER pid=0x%04x ", m_dev, pid);
 		if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
 		{
 			eDebugNoNewLine("failed: %m");
@@ -738,7 +744,7 @@ int eDVBPCR::startPid(int pid)
 #else
 	pes.flags    = 0;
 #endif
-	eDebugNoNewLineStart("[eDVBPCR%d] DMX_SET_PES_FILTER pid=0x%02x ", m_dev, pid);
+	eDebugNoNewLineStart("[eDVBPCR%d] DMX_SET_PES_FILTER pid=0x%04x ", m_dev, pid);
 	if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
 	{
 		eDebugNoNewLine("failed: %m");
@@ -816,7 +822,7 @@ int eDVBTText::startPid(int pid)
  	pes.flags    = 0;
 #endif
 
-	eDebugNoNewLineStart("[eDVBText%d] DMX_SET_PES_FILTER pid=0x%02x ", m_dev, pid);
+	eDebugNoNewLineStart("[eDVBText%d] DMX_SET_PES_FILTER pid=0x%04x ", m_dev, pid);
 	if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
 	{
 		eDebugNoNewLine("failed: %m");
