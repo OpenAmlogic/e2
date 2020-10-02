@@ -569,7 +569,7 @@ public:
 public:
 	~iAudioTrackInfo();
 #endif
-	iAudioTrackInfo() : m_type(atUnknown), m_pid(0), m_language("und"), m_description(""), m_saved(false), m_default(false) {};
+	iAudioTrackInfo() : m_type(aUnknown), m_pid(0), m_language("und"), m_description(""), m_saved(false), m_default(false) {};
 
 	std::string getDescription() { return m_description; }
 	std::string getLanguage() { return m_language; }
