@@ -1,4 +1,4 @@
-#ifndef __lib_dvb_iservice_h
+.#ifndef __lib_dvb_iservice_h
 #define __lib_dvb_iservice_h
 
 #include <lib/python/swig.h>
