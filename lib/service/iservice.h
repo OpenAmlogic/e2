@@ -567,17 +567,19 @@ class iAudioTrackInfo: public iAudioType_ENUMS
 	
 #ifndef SWIG
 public:
-#endif
+
 	iAudioTrackInfo(int type, int pid, std::string language, std::string description = "", bool saved = false, bool defaultf = false)
 		: m_type(type), m_pid(pid), m_language(language), m_description(description), m_saved(saved), m_default(defaultf) {}
+#endif
 #ifdef SWIG
 public:
 	~iAudioTrackInfo();
-#endif
+
 	iAudioTrackInfo() : m_type(aUnknown), m_pid(0), m_language("und"), m_description(""), m_saved(false), m_default(false) {};
 
 	std::string getDescription() { return m_description; }
 	std::string getLanguage() { return m_language; }
+#endif	
 	int getPID() { return m_pid; }
 	int getType() { return m_type; }
 	int isSaved() { return m_saved; }
