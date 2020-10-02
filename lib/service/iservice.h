@@ -553,13 +553,18 @@ public:
 
 class iAudioTrackInfo: public iAudioType_ENUMS
 {
+#ifdef SWIG
 	int m_type;
 	int m_pid; /* for association with the stream. */
 	std::string m_language; /* iso639 */
 	std::string m_description;
 	bool m_saved;
 	bool m_default;
-
+#endif
+	std::string getDescription() { return m_description; }
+	std::string getLanguage() { return m_language; }
+	int getPID() { return m_pid; }
+	
 #ifndef SWIG
 public:
 #endif
