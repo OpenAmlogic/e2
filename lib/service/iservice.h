@@ -541,51 +541,16 @@ public:
 };
 SWIG_TEMPLATE_TYPEDEF(ePtr<iSeekableService>, iSeekableServicePtr);
 
-class iAudioType_ENUMS
+struct iAudioTrackInfo
 {
-#ifdef SWIG
-	iAudioType_ENUMS();
-	~iAudioType_ENUMS();
-#endif
-public:
-	enum { aMPEG, aAC3, aDTS, aAAC, aAACHE, aLPCM, aDTSHD, aDDP, aMP3, aPCM, aOGG, aFLAC, aWMA, aTRUEHD, aUnknown=-1};
-};
-
-class iAudioTrackInfo: public iAudioType_ENUMS
-{
-#ifdef SWIG
-	int m_type;
-	int m_pid; /* for association with the stream. */
-	std::string m_language; /* iso639 */
-	std::string m_description;
-	bool m_saved;
-	bool m_default;
-#endif
-	std::string getDescription() { return m_description; }
-	std::string getLanguage() { return m_language; }
-	int getPID() { return m_pid; }
-	
 #ifndef SWIG
-public:
-
-	iAudioTrackInfo(int type, int pid, std::string language, std::string description = "", bool saved = false, bool defaultf = false)
-		: m_type(type), m_pid(pid), m_language(language), m_description(description), m_saved(saved), m_default(defaultf) {}
+	std::string m_description;
+	std::string m_language; /* iso639 */
+	int m_pid; /* for association with the stream. */
 #endif
-#ifdef SWIG
-public:
-	~iAudioTrackInfo();
-
-	iAudioTrackInfo() : m_type(aUnknown), m_pid(0), m_language("und"), m_description(""), m_saved(false), m_default(false) {};
-
 	std::string getDescription() { return m_description; }
 	std::string getLanguage() { return m_language; }
-#endif	
 	int getPID() { return m_pid; }
-	int getType() { return m_type; }
-	int isSaved() { return m_saved; }
-	int isDefault() { return m_default; }
-	void setLanguage(std::string language) { m_language = language; }
-	void setDescription(std::string description) { m_description = description; }
 };
 SWIG_ALLOW_OUTPUT_SIMPLE(iAudioTrackInfo);
 
