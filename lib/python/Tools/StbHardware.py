@@ -12,10 +12,10 @@ def getFPVersion():
 			file = open("/proc/stb/info/micomver", "r")
 			ret = file.readline().strip()
 			file.close()
-		elif getBoxType() in ('dm7080','dm820','dm520','dm525','dm900','dm920'):
-			ret = open("/proc/stb/fp/version", "r").read()
+		elif getBoxType() in ('dm7080','dm820','dm520','dm525','dm900','dm920','dreamone','dreamtwo'):
+			ret = open("/proc/stb/fp/version", "/proc/stb/fp/fp_version", "r").read()
 		else:	
-			ret = long(open("/proc/stb/fp/version", "r").read())
+			ret = long(open("/proc/stb/fp/version", "/proc/stb/fp/fp_version", "r").read())
 	except IOError:
 		try:
 			fp = open("/dev/dbox/fp0")
