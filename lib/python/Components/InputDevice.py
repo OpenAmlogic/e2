@@ -3,7 +3,7 @@ from fcntl import ioctl
 from boxbranding import getBoxType, getBrandOEM
 import struct
 
-from config import config, ConfigSubsection, ConfigInteger, ConfigYesNo, ConfigText, ConfigSlider
+from config import config, ConfigSubsection, ConfigBoolean, ConfigInteger, ConfigYesNo, ConfigText, ConfigSlider
 from Tools.Directories import pathExists
 import platform
 
