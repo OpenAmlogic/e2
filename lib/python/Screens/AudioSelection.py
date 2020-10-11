@@ -24,38 +24,38 @@ FOCUS_CONFIG, FOCUS_STREAMS = range(2)
 
 #{key: (shortname, display name, default sort rank)}
 AUDIO_FORMATS = {
-	iAt.atDTSHD:  ("DTS-HD",_("DTS-HD"),1),
-	iAt.atDTS:    ("DTS",   _("DTS"),   2),
-	iAt.atAACHE:  ("AACHE", _("HE-AAC"),3),
-	iAt.atAAC:    ("AAC",   _("AAC"),   4),
-	iAt.atDDP:    ("DDP",   _("AC3+"),  5),
-	iAt.atAC3:    ("AC3",   _("AC3"),   6),
-	iAt.atMPEG:   ("MPEG",  _("MPEG"),  7),
-	iAt.atMP3:    ("MP3",   _("MP3"),   8),
-	iAt.atLPCM:   ("LPCM",  _("LPCM"),  9),
-	iAt.atPCM:    ("PCM",   _("PCM"),  10),
-	iAt.atWMA:    ("WMA",   _("WMA"),  11),
-	iAt.atFLAC:   ("FLAC",  _("FLAC"), -1),
-	iAt.atOGG:    ("OGG",   _("OGG"),  -1),
-	iAt.atTRUEHD: ("TrueHD",_("TrueHD"), -1),
-	iAt.atUnknown:("unknown",_("<unknown>"), -1)
+	atDTSHD:  ("DTS-HD",_("DTS-HD"),1),
+	atDTS:    ("DTS",   _("DTS"),   2),
+	atAACHE:  ("AACHE", _("HE-AAC"),3),
+	atAAC:    ("AAC",   _("AAC"),   4),
+	atDDP:    ("DDP",   _("AC3+"),  5),
+	atAC3:    ("AC3",   _("AC3"),   6),
+	atMPEG:   ("MPEG",  _("MPEG"),  7),
+	atMP3:    ("MP3",   _("MP3"),   8),
+	atLPCM:   ("LPCM",  _("LPCM"),  9),
+	atPCM:    ("PCM",   _("PCM"),  10),
+	atWMA:    ("WMA",   _("WMA"),  11),
+	atFLAC:   ("FLAC",  _("FLAC"), -1),
+	atOGG:    ("OGG",   _("OGG"),  -1),
+	atTRUEHD: ("TrueHD",_("TrueHD"), -1),
+	atUnknown:("unknown",_("<unknown>"), -1)
 }
 
 SUB_FORMATS = {
-	iSt.DVB:   ("DVB", _("DVB"), 1),
-	iSt.TTX:   ("TTX", _("TTX"), 2),
-	iSt.DVD:   ("DVD", _("DVD"), 3),
-	iSt.GST:   ("GST",  ("GST"), -1),
-	iSt.NONE:  ("unknown", _("<unknown>"), -1)
+	DVB:   ("DVB", _("DVB"), 1),
+	TTX:   ("TTX", _("TTX"), 2),
+	DVD:   ("DVD", _("DVD"), 3),
+	GST:   ("GST",  ("GST"), -1),
+	NONE:  ("unknown", _("<unknown>"), -1)
 }
 
 GST_SUB_FORMATS = {
-	iGSt.stPGS:      ("PGS",    _("PGS Bluray subs"), 11),
-	iGSt.stVOB:      ("VOB",    _("DVD subtitles"), 12),
-	iGSt.stASS:      ("AAS",    _("AAS Advanced SSA"), 13),
-	iGSt.stSSA:      ("SSA",    _("SSA Substation Alpha"), 14),
-	iGSt.stPlainText:("plain",  _("plain text subtitles"), 15),
-	iGSt.stUnknown:  ("unknown",_("<unknown>"), -1)
+	stPGS:      ("PGS",    _("PGS Bluray subs"), 11),
+	stVOB:      ("VOB",    _("DVD subtitles"), 12),
+	stASS:      ("AAS",    _("AAS Advanced SSA"), 13),
+	stSSA:      ("SSA",    _("SSA Substation Alpha"), 14),
+	stPlainText:("plain",  _("plain text subtitles"), 15),
+	stUnknown:  ("unknown",_("<unknown>"), -1)
 }
 
 selectionpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/selectioncross.png"))
@@ -64,47 +64,6 @@ class SelectionTrackinfoEntry():
 	def __init__(self, idx, info):
 		self.idx = idx
 		self.info = info#{key: (shortname, display name, default sort rank)}
-AUDIO_FORMATS = {
-	iAt.atDTSHD:  ("DTS-HD",_("DTS-HD"),1),
-	iAt.atDTS:    ("DTS",   _("DTS"),   2),
-	iAt.atAACHE:  ("AACHE", _("HE-AAC"),3),
-	iAt.atAAC:    ("AAC",   _("AAC"),   4),
-	iAt.atDDP:    ("DDP",   _("AC3+"),  5),
-	iAt.atAC3:    ("AC3",   _("AC3"),   6),
-	iAt.atMPEG:   ("MPEG",  _("MPEG"),  7),
-	iAt.atMP3:    ("MP3",   _("MP3"),   8),
-	iAt.atLPCM:   ("LPCM",  _("LPCM"),  9),
-	iAt.atPCM:    ("PCM",   _("PCM"),  10),
-	iAt.atWMA:    ("WMA",   _("WMA"),  11),
-	iAt.atFLAC:   ("FLAC",  _("FLAC"), -1),
-	iAt.atOGG:    ("OGG",   _("OGG"),  -1),
-	iAt.atTRUEHD: ("TrueHD",_("TrueHD"), -1),
-	iAt.atUnknown:("unknown",_("<unknown>"), -1)
-}
-
-SUB_FORMATS = {
-	iSt.DVB:   ("DVB", _("DVB"), 1),
-	iSt.TTX:   ("TTX", _("TTX"), 2),
-	iSt.DVD:   ("DVD", _("DVD"), 3),
-	iSt.GST:   ("GST",  ("GST"), -1),
-	iSt.NONE:  ("unknown", _("<unknown>"), -1)
-}
-
-GST_SUB_FORMATS = {
-	iGSt.stPGS:      ("PGS",    _("PGS Bluray subs"), 11),
-	iGSt.stVOB:      ("VOB",    _("DVD subtitles"), 12),
-	iGSt.stASS:      ("AAS",    _("AAS Advanced SSA"), 13),
-	iGSt.stSSA:      ("SSA",    _("SSA Substation Alpha"), 14),
-	iGSt.stPlainText:("plain",  _("plain text subtitles"), 15),
-	iGSt.stUnknown:  ("unknown",_("<unknown>"), -1)
-}
-
-selectionpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/selectioncross.png"))
-
-class SelectionTrackinfoEntry():
-	def __init__(self, idx, info):
-		self.idx = idx
-		self.info = info
 
 class AudioSelection(Screen, ConfigListScreen):
 	def __init__(self, session, infobar=None, page=PAGE_AUDIO):
