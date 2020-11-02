@@ -843,7 +843,6 @@ if boxtype in ('uniboxhd1', 'uniboxhd2', 'uniboxhd3', 'sezam5000hd', 'mbtwin', '
 		print "Error disable enable_clock for ini5000 boxes"
 
 if boxtype in ('dm7080', 'dm820', 'dm900', 'dm920', 'gb7252'):
-	#if boxtype in ('dm7080', 'dm820', 'dm900', 'dm920', 'dreamone', 'dreamtwo', 'gb7252'):
 	f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","r")
 	check=f.read()
 	f.close()
