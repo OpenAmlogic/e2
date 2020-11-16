@@ -3,7 +3,7 @@ from fcntl import ioctl
 from boxbranding import getBoxType, getBrandOEM
 import struct
 
-from config import config, ConfigSubsection, ConfigSelection, ConfigOnOff, ConfigBoolean, ConfigInteger, ConfigYesNo, ConfigText, ConfigSlider
+from config import config, ConfigSubsection, ConfigInteger, ConfigYesNo, ConfigText, ConfigSlider
 from Tools.Directories import pathExists
 import platform
 
@@ -147,40 +147,11 @@ class InitInputDevices:
 
 	def createConfig(self, *args):
 		config.inputDevices = ConfigSubsection()
-		config.inputDevices.settings = ConfigSubsection()
-		config.inputDevices.settings.firstDevice = ConfigBoolean(default=True)
-		config.inputDevices.settings.logBattery = ConfigBoolean(default=True)
-		config.inputDevices.settings.listboxFeedback = ConfigOnOff(default=True)
-		colors = [
-			("0xFF0000",_("red")),
-			("0xFF3333", _("rose")),
-			("0xFF5500", _("orange")),
-			("0xDD9900", _("yellow")),
-			("0x99DD00", _("lime")),
-			("0x00FF00", _("green")),
-			("0x00FF99", _("aqua")),
-			("0x00BBFF", _("olympic blue")),
-			("0x0000FF", _("blue")),
-			("0x6666FF", _("azure")),
-			("0x9900FF", _("purple")),
-			("0xFF0066", _("pink")),
-		]
-		config.inputDevices.settings.connectedColor = ConfigSelection(colors, default="0xFF0066")
-		config.inputDevices.settings.connectedColor.addNotifier(self._onConnectedRcuColorChanged, initial_call=False)
-		config.inputDevices.settings.connectedColorIr = ConfigSelection(colors, default="0x99DD00")
-		config.inputDevices.settings.connectedColorIr.addNotifier(self._onConnectedRcuColorIrChanged, initial_call=False)
-		
 		for device in sorted(iInputDevices.Devices.iterkeys()):
 			self.currentDevice = device
 			#print "[InitInputDevices] -> creating config entry for device: %s -> %s  " % (self.currentDevice, iInputDevices.Devices[device]["name"])
 			self.setupConfigEntries(self.currentDevice)
 			self.currentDevice = ""
-			
-	def _onConnectedRcuColorChanged(self, *args):
-		eInputDeviceManager.getInstance().setLedColor(int(config.inputDevices.settings.connectedColor.value, 0))
-
-	def _onConnectedRcuColorIrChanged(self, *args):
-		eInputDeviceManager.getInstance().setLedColorIr(int(config.inputDevices.settings.connectedColorIr.value, 0))		
 
 	def inputDevicesEnabledChanged(self,configElement):
 		if self.currentDevice != "" and iInputDevices.currentDevice == "":
