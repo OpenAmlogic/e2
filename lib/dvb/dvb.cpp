@@ -29,6 +29,12 @@ DEFINE_REF(eDVBRegisteredDemux);
 
 DEFINE_REF(eDVBAllocatedFrontend);
 
+void eDVBRegisteredFrontend::closeFrontend()
+{
+	if (!m_inuse && m_frontend->closeFrontend()) // frontend busy
+		disable->start(60000, true);  // retry close in 60secs
+}
+
 eDVBAllocatedFrontend::eDVBAllocatedFrontend(eDVBRegisteredFrontend *fe): m_fe(fe)
 {
 	m_fe->inc_use();
